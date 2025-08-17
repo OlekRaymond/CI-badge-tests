@@ -37,6 +37,6 @@ jobs:
         uses: peterrhodesdev/build-a-badge@v1.3.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          filename: "my-badge"
+          filename: "./badges/my-badge"
           label: "${{steps.label-data.outputs.label}}"
           message: "${{steps.label-data.outputs.message}}"
