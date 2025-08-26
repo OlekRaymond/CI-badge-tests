@@ -1,0 +1,29 @@
+# Example 1: Reusable step groups
+name: CI Pipeline
+
+on: [push, pull_request]
+
+# Define anchors at the top level
+x-setup-node: &setup-node
+  - name: Checkout code
+    uses: actions/checkout@v4
+  - name: Setup Node.js
+    uses: actions/setup-node@v4
+    with:
+      node-version: '18'
+      cache: 'npm'
+  - name: Install dependencies
+    run: npm ci
+
+x-build-steps: &build-steps
+  - name: Build application
+    run: npm run build
+  - name: Run tests
+    run: npm test
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      <<: *setup-node
+      <<: *build-steps
